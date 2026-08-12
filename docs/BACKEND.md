@@ -62,43 +62,35 @@ renders identically on web and mobile.
 
 ## What the hub side still needs
 
-Universal links require two files on `app.skippy.id`, which the hub does not serve
-yet — `packages/nginx/nginx.conf` matches an explicit path allowlist with no
-`/.well-known/` route. In the **skippy** monorepo:
+Universal links require an association file per platform, served from
+`app.skippy.id` itself. This is prepared in the **skippy** monorepo on branch
+`feat/wallet-app-links`:
 
-1. `packages/skippy-web/public/.well-known/apple-app-site-association` — no file
-   extension, served as `application/json`, over HTTPS, no redirects:
+- `packages/skippy-web/public/.well-known/apple-app-site-association`
+- `packages/skippy-web/public/.well-known/assetlinks.json`
+- a content-type fix in `packages/skippy-web/server.mjs`
 
-   ```json
-   {
-     "applinks": {
-       "details": [
-         {
-           "appIDs": ["<TEAM_ID>.id.skippy.wallet"],
-           "components": [{ "/": "/wallet/*" }, { "/": "/invitation/*" }]
-         }
-       ]
-     }
-   }
-   ```
+nginx needs **no** change: the `app.skippy.id` block falls through to
+`location /`, which proxies to skippy-web, and Vite copies `public/` verbatim
+(dot-directories included) into `build/`.
 
-2. `packages/skippy-web/public/.well-known/assetlinks.json`:
+`server.mjs` did need one. It picks the content type from the file extension and
+otherwise falls back to `application/octet-stream` — but
+`apple-app-site-association` has no extension by design, and Apple rejects
+anything that is not `application/json`. Without the fix universal links fail
+while the file appears to be served correctly.
 
-   ```json
-   [
-     {
-       "relation": ["delegate_permission/common.handle_all_urls"],
-       "target": {
-         "namespace": "android_app",
-         "package_name": "id.skippy.wallet",
-         "sha256_cert_fingerprints": ["<SHA256 from `eas credentials -p android`>"]
-       }
-     }
-   ]
-   ```
+Two values in those files can only be filled in once the store accounts exist:
+the **Apple Team ID**, and the **SHA-256 fingerprint** of the Android signing
+certificate (`eas credentials -p android`). Deploy early — Apple's CDN caches the
+AASA, so verification lags a change by hours.
 
-3. An nginx `location ^~ /.well-known/ { ... }` in the `app.skippy.id` server
-   block, proxying to skippy-web.
+Verify once deployed:
+
+```bash
+curl -sI https://app.skippy.id/.well-known/apple-app-site-association | grep -i content-type
+curl -s  https://app.skippy.id/.well-known/assetlinks.json | head
+```
 
 Optionally, `buildOpenIdCredentialWalletMetadata`
 (`packages/skippy-hub/src/controllers/openidvc/openidvcHolder.ts`) can advertise
