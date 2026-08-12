@@ -1,6 +1,6 @@
 ## What this is
 
-Paradym Wallet is a mobile SSI (Self-Sovereign Identity) wallet that holds and presents digital credentials: the general-purpose Animo/Paradym wallet for issuing and verifying W3C/AnonCreds/SD-JWT VCs over DIDComm and OID4VC, including EUDI flows (PID issuance, OID4VP presentations to relying parties, etc.). The `APP_VARIANT` env var read in `apps/wallet/base.app.config.js` selects the development/preview/production build variant. Treat shared code in `packages/app` as the default place to make changes unless the behavior is specific to the app shell.
+Skippy Wallet is a mobile SSI (Self-Sovereign Identity) wallet that holds and presents digital credentials, built on OID4VC (OID4VCI issuance, OID4VP presentation) over SD-JWT VC and mdoc, talking to the Skippy hub. It is a fork of the Paradym Wallet by Animo Solutions (Apache-2.0) — see docs/REBRAND.md for what diverges and what is deliberately left alone. Two env vars select a build: `EXPO_PUBLIC_APP_BRAND` picks the brand (apps/wallet/brands), `APP_VARIANT` picks development/preview/production. Note that despite upstream's docs, most feature code lives in `apps/wallet/src/features`, not `packages/app`.
 
 ## Working principles
 
@@ -31,7 +31,7 @@ Use scoped Conventional Commits for every commit (e.g. `feat(app): ...`, `chore(
 
 pnpm monorepo (workspace defined in `pnpm-workspace.yaml`). Node `>=22.21.1`, pnpm `11.7.0`.
 
-- `apps/wallet` — the Expo React Native app shell for the Paradym Wallet. Native config, app entry, and app-specific wiring live here.
+- `apps/wallet` — the Expo React Native app. Native config, routing, the screens in `src/features`, build-time brands in `brands/`, and runtime tenant branding in `src/brand`.
 - `packages/app` — shared screens, features, providers, hooks. Most feature code lives here, not in `apps/wallet`. Feature code goes in `packages/app/src/features/<feature-name>/` — don't add a `screens/` folder.
 - `packages/ui` — Tamagui-based UI kit.
 - `packages/scanner` — QR scanning utils.
@@ -50,7 +50,7 @@ pnpm monorepo (workspace defined in `pnpm-workspace.yaml`). Node `>=22.21.1`, pn
 
 - **Expo SDK 56**, React Native 0.85.3, React 19.2.3. Expo Router for navigation.
 - **Tamagui** for UI — has a Babel plugin; use Tamagui primitives over raw RN components where possible.
-- **Credo (`@credo-ts/*` 0.6.3)** is the SSI/agent framework. `@openid4vc/*` handles OID4VCI/VP. Askar (`@openwallet-foundation/askar-*`) is the secure storage / crypto backend.
+- **Credo (`@credo-ts/*`, pinned via the pnpm catalog)** is the SSI/agent framework. `@openid4vc/*` handles OID4VCI/VP. Askar (`@openwallet-foundation/askar-*`) is the secure storage / crypto backend.
 - **Lingui** for i18n — see the Translations section below. Do not edit non-English `.po` catalogs by hand.
 - **Biome** with single quotes, no semicolons, 120-col, ES5 trailing commas, 2-space indent. `noUnusedImports` is an error.
 - Native development build is required when native deps change: `cd apps/wallet && pnpm prebuild && pnpm ios` (or `android`). JS-only changes only need `pnpm start` from the repo root.

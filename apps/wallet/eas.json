@@ -4,6 +4,9 @@
 			"node": "22.21.1",
 			"ios": {
 				"image": "macos-tahoe-26.4-xcode-26.4"
+			},
+			"env": {
+				"EXPO_PUBLIC_APP_BRAND": "skippy"
 			}
 		},
 		"development": {
@@ -64,11 +67,13 @@
 	"submit": {
 		"production": {
 			"ios": {
-				"companyName": "Animo Solutions",
-				"ascAppId": "6449846111"
+				"companyName": "__SKIPPY_TODO_COMPANY_NAME__",
+				"appleTeamId": "__SKIPPY_TODO_APPLE_TEAM_ID__",
+				"ascAppId": "__SKIPPY_TODO_ASC_APP_ID__"
 			},
 			"android": {
-				"track": "alpha"
+				"track": "internal",
+				"serviceAccountKeyPath": "./secrets/play-service-account.json"
 			}
 		}
 	}

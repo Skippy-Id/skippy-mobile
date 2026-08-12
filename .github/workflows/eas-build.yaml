@@ -1,0 +1,76 @@
+name: EAS Build
+
+# Builds the wallet on EAS. Store submission stays manual (`eas submit`) so a tag
+# can never publish to a store by itself.
+#
+# Requires repo secret EXPO_TOKEN (Expo account -> Access tokens), and the
+# account-specific ids in docs/STORE_RELEASE.md to be filled in first.
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        type: choice
+        description: 'EAS build profile'
+        required: true
+        options:
+          - 'preview'
+          - 'preview-simulator'
+          - 'production'
+        default: 'preview'
+      platform:
+        type: choice
+        description: 'Platform to build for'
+        required: true
+        options:
+          - 'android'
+          - 'ios'
+          - 'all'
+        default: 'all'
+      brand:
+        description: 'Brand to build (folder name under apps/wallet/brands)'
+        required: true
+        default: 'skippy'
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    name: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22.21.1'
+
+      - uses: pnpm/action-setup@v6
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v9
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm install
+
+      # A tagged build is a release candidate, so unresolved account placeholders
+      # are fatal here even though CI only warns about them.
+      - name: Check for unresolved release placeholders
+        run: node scripts/check-placeholders.mjs
+
+      - name: Build
+        working-directory: apps/wallet
+        env:
+          EXPO_PUBLIC_APP_BRAND: ${{ inputs.brand || 'skippy' }}
+        run: |
+          eas build \
+            --profile "${{ inputs.profile || 'production' }}" \
+            --platform "${{ inputs.platform || 'all' }}" \
+            --non-interactive \
+            --no-wait

@@ -29,6 +29,12 @@ yarn-error.log*
 .env.production.local
 .env
 
+# store signing credentials (Play service account key, ASC API key, ...)
+secrets/
+*.p8
+*.p12
+*.mobileprovision
+
 # vercel
 .vercel
 
@@ -104,4 +110,4 @@ android
 dist/
 packages/ui/types
 
-apps/easypid/.maestro/.maestro/screenshots
+apps/wallet/.maestro/.maestro/screenshots
