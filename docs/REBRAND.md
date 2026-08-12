@@ -63,6 +63,12 @@ resolving those merges and the record of modifications Apache-2.0 §4(b) require
 - The `pidSetup.enableBiometrics` copy hardcoded "Paradym Wallet". It is now
   brand-neutral under a new message id (`…subtitleV2`), since the existing
   translations named a specific product.
+- The Android build could not complete with Expo's default `-Xmx2048m`:
+  `:app:mergeExtDexDebug` fails after ~30 minutes with a
+  `DexArchiveMergerException` whose message is empty — an OOM in the dex merge
+  worker. Measured on a 16 GB machine: 2 GB fails, 8 GB succeeds (build then
+  takes ~16 min). `plugins/withGradleMemory.cjs` sets it, as a config plugin
+  rather than an edit to `android/gradle.properties`, which prebuild regenerates.
 
 ## CI replaced
 

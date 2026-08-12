@@ -31,7 +31,9 @@ pnpm android         # or: pnpm ios
 
 `ios/` and `android/` are generated (Expo prebuild / CNG) and git-ignored — never
 edit them by hand. Everything native flows from `app.config.js`,
-`base.app.config.js` and the brand config.
+`base.app.config.js` and the brand config — including Gradle's heap, which
+`plugins/withGradleMemory.cjs` raises to 8 GB because the Expo default cannot dex
+this project (see docs/REBRAND.md). A first Android build takes ~15-30 minutes.
 
 Building another brand:
 

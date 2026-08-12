@@ -162,6 +162,8 @@ const createBaseConfig = (appSpecific) => {
           launchMode: 'most-recent',
         },
       ],
+      // Expo's default Gradle heap is too small to dex this project — see the plugin.
+      './plugins/withGradleMemory.cjs',
       [
         'expo-font',
         {
