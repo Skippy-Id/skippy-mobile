@@ -4,7 +4,7 @@ import {
   shouldUseFallbackSecureEnvironment,
 } from '@animo-id/expo-secure-environment'
 import { FEATURES } from '@app/config/features'
-import { paradymWalletSdkOptions } from '@app/config/paradym'
+import { walletSdkOptions } from '@app/config/sdkSetup'
 import { getShouldUseCloudHsm } from '@app/features/onboarding/useShouldUseCloudHsm'
 import { AskarModule, AskarStoreInvalidKeyError } from '@credo-ts/askar'
 import {
@@ -26,10 +26,10 @@ import { deriveKeypairFromPin } from './pin'
 let __pin: Array<number> | undefined
 
 // Validation askar store id. Sits next to the main wallet
-// (`${paradymWalletSdkOptions.id}-${walletKeyVersion}`) on disk and must use a
+// (`${walletSdkOptions.id}-${walletKeyVersion}`) on disk and must use a
 // different id so the two stores never conflict.
 const getValidationStoreId = (walletKeyVersion: number) =>
-  `${paradymWalletSdkOptions.id}-pin-validation-${walletKeyVersion}`
+  `${walletSdkOptions.id}-pin-validation-${walletKeyVersion}`
 
 // The validation store created by `setWalletServiceProviderPin` lives in its own
 // askar wallet directory. It must be wiped alongside the main wallet during a

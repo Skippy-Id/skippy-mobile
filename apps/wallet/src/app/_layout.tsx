@@ -1,5 +1,5 @@
 import { isGetCredentialActivity } from '@animo-id/expo-digital-credentials-api'
-import { paradymWalletSdkOptions } from '@app/config/paradym'
+import { walletSdkOptions } from '@app/config/sdkSetup'
 import { BackgroundLockProvider, NoInternetToastProvider, Provider } from '@package/app'
 import { ParadymWalletSdk } from '@paradym/wallet-sdk'
 import { Slot } from 'expo-router'
@@ -45,7 +45,7 @@ function RootLayout() {
       >
         <BackgroundLockProvider>
           <NoInternetToastProvider>
-            <ParadymWalletSdk.UnlockProvider configuration={paradymWalletSdkOptions}>
+            <ParadymWalletSdk.UnlockProvider configuration={walletSdkOptions}>
               <Slot />
             </ParadymWalletSdk.UnlockProvider>
           </NoInternetToastProvider>

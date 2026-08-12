@@ -64,12 +64,16 @@ const createBaseConfig = (appSpecific) => {
     name,
     scheme,
     slug,
+    owner,
     adaptiveIcon,
+    adaptiveIconBackgroundColor,
     icon,
     splash,
     splashIcon,
     additionalInvitationSchemes = [],
     associatedDomains = [],
+    // Path prefixes claimed on the associated domains as Android App Links.
+    universalLinkPaths = ['/invitation', '/wallet/redirect', '/oauth2/redirect'],
     projectId,
     extraConfig = {},
   } = appSpecific
@@ -80,7 +84,7 @@ const createBaseConfig = (appSpecific) => {
     name: `${name}${variant.name}`,
     scheme,
     slug,
-    owner: 'animo-id',
+    owner,
     version: appSpecific.version,
     orientation: 'portrait',
     icon,
@@ -196,6 +200,7 @@ const createBaseConfig = (appSpecific) => {
       allowBackup: false,
       adaptiveIcon: {
         foregroundImage: adaptiveIcon,
+        backgroundColor: adaptiveIconBackgroundColor,
       },
       package: `${appSpecific.bundleId}${variant.bundle}`,
       intentFilters: [
@@ -207,7 +212,7 @@ const createBaseConfig = (appSpecific) => {
           },
         })),
         ...associatedDomains.flatMap((host) =>
-          ['/invitation', '/wallet/redirect', '/oauth2/redirect'].map((path) => ({
+          universalLinkPaths.map((path) => ({
             action: 'VIEW',
             category: ['DEFAULT', 'BROWSABLE'],
             autoVerify: true,

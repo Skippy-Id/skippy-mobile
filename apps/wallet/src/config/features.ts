@@ -1,13 +1,6 @@
-export const FEATURES = {
-  AI_ANALYSIS: false,
-  DIDCOMM: true,
-  CLOUD_HSM: false,
-} satisfies Features
+import { brand } from '../../brands'
 
-export interface Features {
-  AI_ANALYSIS: boolean
-  DIDCOMM: boolean
-  CLOUD_HSM: boolean
-}
+// Feature flags for the active brand — see brands/<brand>/features.ts.
+export const FEATURES = brand.features
 
-export type FeatureKey = keyof Features
+export type { Features, FeatureKey } from '../../brands/types'
