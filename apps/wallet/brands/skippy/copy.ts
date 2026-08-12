@@ -2,6 +2,10 @@ import { defineMessage } from '@lingui/core/macro'
 import { useAssets } from 'expo-asset'
 
 export const productName = 'Skippy Wallet'
+export const supportEmail = 'support@skippy.id'
+// __SKIPPY_TODO_PRIVACY_URL__ — must be live before store submission; both stores
+// require a reachable privacy policy URL.
+export const privacyPolicyUrl = 'https://skippy.id/privacy'
 
 export const copy = {
   about: {

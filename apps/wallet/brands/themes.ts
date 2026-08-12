@@ -19,9 +19,7 @@ const theme = THEMES[APP_BRAND]
 if (!theme) {
   // Fail loudly: silently falling back would ship one brand's colours under
   // another brand's name.
-  throw new Error(
-    `Unknown EXPO_PUBLIC_APP_BRAND "${APP_BRAND}". Known brands: ${Object.keys(THEMES).join(', ')}.`
-  )
+  throw new Error(`Unknown EXPO_PUBLIC_APP_BRAND "${APP_BRAND}". Known brands: ${Object.keys(THEMES).join(', ')}.`)
 }
 
 export const APP_THEME: Theme = theme

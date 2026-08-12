@@ -6,6 +6,7 @@ import { commonMessages } from '@package/translations'
 import { Button, HeroIcons, Spinner, useToastController, XStack, YStack } from '@package/ui'
 import { useState } from 'react'
 import { Linking, Platform } from 'react-native'
+import { brand } from '../../../../brands'
 import { ProtectData } from './assets/ProtectData'
 
 interface OnboardingDataProtectionProps {
@@ -63,7 +64,7 @@ export function OnboardingDataProtection({ goToNextStep }: OnboardingDataProtect
   }
 
   const onPressPrivacy = () => {
-    Linking.openURL('https://paradym.id/wallet-privacy-policy')
+    Linking.openURL(brand.privacyPolicyUrl)
   }
 
   return (

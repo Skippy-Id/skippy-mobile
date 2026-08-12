@@ -4,17 +4,18 @@ import { TextBackButton } from '@package/app'
 import { FlexPage, HeaderContainer, InfoButton, Paragraph, YStack } from '@package/ui'
 import * as Application from 'expo-application'
 import { Linking } from 'react-native'
+import { brand } from '../../../brands'
 
 export function AboutScreen() {
   const { t } = useLingui()
   const { about } = useAppCopy()
 
   const openContact = () => {
-    Linking.openURL(`mailto:ana@animo.id?subject=${about.emailHeader}`)
+    Linking.openURL(`mailto:${brand.supportEmail}?subject=${t(about.emailHeader)}`)
   }
 
   const openPrivacyPolicy = () => {
-    Linking.openURL('https://paradym.id/wallet-privacy-policy')
+    Linking.openURL(brand.privacyPolicyUrl)
   }
 
   return (
@@ -36,7 +37,7 @@ export function AboutScreen() {
               comment: 'Intro sentence before showing support email address',
             })}{' '}
             <Paragraph fontWeight="$semiBold" color="$primary-500" onPress={openContact}>
-              ana@animo.id
+              {brand.supportEmail}
             </Paragraph>
             .
           </Paragraph>

@@ -11,7 +11,7 @@ import { credentialDataHandlerOptions } from './(app)/_layout'
 // be fully sync.
 export function redirectSystemPath({ path, initial }: { path: string; initial: boolean }) {
   // short-circuit when we just want to enter the app without any link
-  if (path === 'id.animo.paradym:///') {
+  if (path === `${appScheme}:///`) {
     return '/'
   }
 

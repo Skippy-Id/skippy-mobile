@@ -174,7 +174,7 @@
 		"message": "About the wallet",
 		"placeholders": {},
 		"comments": ["Screen header shown on the about page of the wallet"],
-		"origin": [["src/features/menu/AboutScreen.tsx", 23]],
+		"origin": [["src/features/menu/AboutScreen.tsx", 24]],
 		"translation": "À propos du portefeuille"
 	},
 	"trust.headerTitle": {
@@ -190,7 +190,7 @@
 		"message": "About this wallet",
 		"placeholders": {},
 		"comments": ["Label for about screen menu item"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 143]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 146]],
 		"translation": "À propos de ce portefeuille"
 	},
 	"common.acceptButton": {
@@ -218,7 +218,7 @@
 		"message": "Activity",
 		"placeholders": {},
 		"comments": ["Label for activity log"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 103]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 106]],
 		"translation": "Activité"
 	},
 	"activity.title": {
@@ -390,7 +390,7 @@
 		"message": "APP",
 		"placeholders": {},
 		"comments": ["Heading above the app section"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 114]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 117]],
 		"translation": "APP"
 	},
 	"verifyPartySlide.approvedByMultipleOrganizations": {
@@ -774,7 +774,7 @@
 		"message": "Cards",
 		"placeholders": {},
 		"comments": ["Label for the credentials menu item"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 94]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 97]],
 		"translation": "Cartes"
 	},
 	"activity.cardsHeading": {
@@ -1250,7 +1250,7 @@
 		"message": "Feedback",
 		"placeholders": {},
 		"comments": ["Label for feedback menu item"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 133]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 136]],
 		"translation": "Donner un avis"
 	},
 	"loadingRequestSlide.description": {
@@ -1271,7 +1271,7 @@
 		"message": "For more information, reach out to",
 		"placeholders": {},
 		"comments": ["Intro sentence before showing support email address"],
-		"origin": [["src/features/menu/AboutScreen.tsx", 33]],
+		"origin": [["src/features/menu/AboutScreen.tsx", 34]],
 		"translation": "Pour plus d'informations, contactez"
 	},
 	"onboardingWalletExplanation.getStarted": {
@@ -1683,7 +1683,7 @@
 		"message": "Menu",
 		"placeholders": {},
 		"comments": ["Title of the menu screen"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 73]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 76]],
 		"translation": "Menu"
 	},
 	"credentials.metadataAttributes": {
@@ -1856,14 +1856,14 @@
 		"comments": [
 			"Toast shown when switching to local secure storage (e.g. Secure Enclave or Strongbox)"
 		],
-		"origin": [["src/features/onboarding/screens/data-protection.tsx", 30]],
+		"origin": [["src/features/onboarding/screens/data-protection.tsx", 31]],
 		"translation": "Utilisation désormais de {0} pour les clés cryptographiques PID."
 	},
 	"onboardingDataProtection.toast.cloudHsm": {
 		"message": "Now using Cloud HSM for PID cryptographic keys.",
 		"placeholders": {},
 		"comments": ["Toast shown when Cloud HSM is selected for key storage"],
-		"origin": [["src/features/onboarding/screens/data-protection.tsx", 24]],
+		"origin": [["src/features/onboarding/screens/data-protection.tsx", 25]],
 		"translation": "Utilisation désormais de Cloud HSM pour les clés cryptographiques PID."
 	},
 	"network.onlineAgain": {
@@ -1886,7 +1886,7 @@
 		"message": "Open the privacy policy",
 		"placeholders": {},
 		"comments": ["Description under the privacy policy button"],
-		"origin": [["src/features/menu/AboutScreen.tsx", 52]],
+		"origin": [["src/features/menu/AboutScreen.tsx", 53]],
 		"translation": "Ouvrir la politique de confidentialité"
 	},
 	"verifyPartySlide.unknownOrganizationDescription": {
@@ -2193,7 +2193,7 @@
 		"message": "Privacy Policy",
 		"placeholders": {},
 		"comments": ["Label for button that opens the privacy policy"],
-		"origin": [["src/features/menu/AboutScreen.tsx", 47]],
+		"origin": [["src/features/menu/AboutScreen.tsx", 48]],
 		"translation": "politique de confidentialité"
 	},
 	"mdoc.proof.declined": {
@@ -2217,18 +2217,18 @@
 		"origin": [["src/features/share/components/RequestPurposeSection.tsx", 44]],
 		"translation": "BUT"
 	},
-	"paradymWallet.about.emailHeader": {
-		"message": "Reach out from Paradym Wallet",
+	"skippyWallet.about.emailHeader": {
+		"message": "Reach out from Skippy Wallet",
 		"placeholders": {},
-		"comments": ["Email subject when contacting support from Paradym wallet"],
-		"origin": [["src/config/copy.ts", 12]],
-		"translation": "Contact depuis Paradym Wallet"
+		"comments": ["Email subject when contacting support from Skippy wallet"],
+		"origin": [["brands/skippy/copy.ts", 18]],
+		"translation": ""
 	},
 	"onboardingDataProtection.privacy": {
 		"message": "Read the Privacy Policy",
 		"placeholders": {},
 		"comments": ["Button label to open the privacy policy"],
-		"origin": [["src/features/onboarding/screens/data-protection.tsx", 36]],
+		"origin": [["src/features/onboarding/screens/data-protection.tsx", 37]],
 		"translation": "Lire la politique de confidentialité"
 	},
 	"nfcScanner.readyToScan.title": {
@@ -2507,7 +2507,7 @@
 		"message": "Settings",
 		"placeholders": {},
 		"comments": ["Label for settings menu item"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 124]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 127]],
 		"translation": "Paramètres"
 	},
 	"settings.title": {
@@ -2724,6 +2724,13 @@
 		"origin": [["src/features/onboarding/screens/wallet-explanation.tsx", 77]],
 		"translation": "Passer l'explication"
 	},
+	"skippyWallet.about.description": {
+		"message": "Skippy Wallet lets you receive, hold and share digital credentials. Built on open standards (OpenID4VC), it is based on the Paradym Wallet by Animo Solutions, available under Apache 2.0.",
+		"placeholders": {},
+		"comments": ["About screen description text for the Skippy wallet"],
+		"origin": [["brands/skippy/copy.ts", 12]],
+		"translation": ""
+	},
 	"cardLifecycle.limitedByDate.active.sheetDescription": {
 		"message": "Some credentials may expire or require an active internet connection to validate",
 		"placeholders": {},
@@ -2826,7 +2833,7 @@
 		"message": "Success!",
 		"placeholders": {},
 		"comments": [],
-		"origin": [["src/utils/sharedPidSetup.ts", 77]],
+		"origin": [["src/utils/sharedPidSetup.ts", 79]],
 		"translation": "Succès !"
 	},
 	"receiveCredential.successHeader": {
@@ -3104,13 +3111,6 @@
 		"origin": [["src/features/wallet/OfflineQrScreen.tsx", 123]],
 		"translation": "Cela permet à l'application de partager via un code QR."
 	},
-	"paradymWallet.about.description": {
-		"message": "This app was created by Animo Solutions as a companion app for Paradym. All code is available under Apache 2.0.",
-		"placeholders": {},
-		"comments": ["About screen description text for the Paradym wallet"],
-		"origin": [["src/config/copy.ts", 6]],
-		"translation": "Cette application a été créée par Animo Solutions comme application complémentaire de Paradym. Tout le code est disponible sous Apache 2.0."
-	},
 	"cardLifecycle.limitedByDate.expiresIn": {
 		"message": "This card expires in {expiryDaysString}, on {0}.",
 		"placeholders": {
@@ -3218,12 +3218,12 @@
 		"origin": [["src/features/activity/ActivityDetailScreen.tsx", 304]],
 		"translation": "À {0}"
 	},
-	"pidSetup.enableBiometrics.subtitle": {
-		"message": "To continue, make sure your device has biometric protection enabled, and that Paradym Wallet is allowed to use biometrics.",
+	"pidSetup.enableBiometrics.subtitleV2": {
+		"translation": "",
+		"message": "To continue, make sure your device has biometric protection enabled, and that this app is allowed to use biometrics.",
 		"placeholders": {},
 		"comments": [],
-		"origin": [["src/utils/sharedPidSetup.ts", 70]],
-		"translation": "Pour continuer, assurez-vous que la protection biométrique est activée sur votre appareil et que Paradym Wallet est autorisé à utiliser la biométrie."
+		"origin": [["src/utils/sharedPidSetup.ts", 70]]
 	},
 	"credentialCardSlide.subtitle.pin": {
 		"message": "To receive this card from {issuerName}, you need to enter a PIN.",
@@ -3428,7 +3428,7 @@
 		"message": "WALLET",
 		"placeholders": {},
 		"comments": ["Heading above the wallet section"],
-		"origin": [["src/features/menu/MenuScreen.tsx", 84]],
+		"origin": [["src/features/menu/MenuScreen.tsx", 87]],
 		"translation": "WALLET"
 	},
 	"pidSetup.idCardVerify.Subtitle": {
@@ -3716,7 +3716,7 @@
 		"message": "Your information has been retrieved from your eID card.",
 		"placeholders": {},
 		"comments": [],
-		"origin": [["src/utils/sharedPidSetup.ts", 78]],
+		"origin": [["src/utils/sharedPidSetup.ts", 80]],
 		"translation": "Vos informations ont été récupérées depuis votre carte eID."
 	},
 	"presentationSuccess.messageWithVerifier": {

@@ -8,7 +8,9 @@ export default defineConfig({
   catalogs: [
     {
       path: '<rootDir>/src/locales/{locale}/messages',
-      include: ['<rootDir>/src', '<rootDir>/../../packages'],
+      // brands/ carries per-brand copy defined with defineMessage, so it has to be
+      // scanned too or those strings never reach the catalogs.
+      include: ['<rootDir>/src', '<rootDir>/brands', '<rootDir>/../../packages'],
       exclude: ['**/node_modules/**', 'node_modules', '<rootDir>/../../packages/**/node_modules/**'],
     },
   ],

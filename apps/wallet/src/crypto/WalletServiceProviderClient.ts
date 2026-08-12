@@ -28,8 +28,7 @@ let __pin: Array<number> | undefined
 // Validation askar store id. Sits next to the main wallet
 // (`${walletSdkOptions.id}-${walletKeyVersion}`) on disk and must use a
 // different id so the two stores never conflict.
-const getValidationStoreId = (walletKeyVersion: number) =>
-  `${walletSdkOptions.id}-pin-validation-${walletKeyVersion}`
+const getValidationStoreId = (walletKeyVersion: number) => `${walletSdkOptions.id}-pin-validation-${walletKeyVersion}`
 
 // The validation store created by `setWalletServiceProviderPin` lives in its own
 // askar wallet directory. It must be wiped alongside the main wallet during a
