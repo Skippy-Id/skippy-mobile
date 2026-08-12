@@ -7,6 +7,7 @@
 		"upgrade:tamagui": "pnpm up '*tamagui*'@latest '@tamagui/*'@latest",
 		"upgrade:tamagui:canary": "pnpm up '*tamagui*'@canary '@tamagui/*'@canary",
 		"deps:fix": "pnpm deps:check --fix",
+		"test": "pnpm --filter skippy-wallet test",
 		"types:check": "tsc --noEmit",
 		"style:check": "biome check --unsafe",
 		"style:fix": "biome check --write --unsafe",

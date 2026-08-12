@@ -5,7 +5,7 @@ tags:
 - launchApp:
     clearState: true
 
-- assertVisible: Paradym Wallet
+- assertVisible: Skippy Wallet
 - tapOn: Get Started
 
 - assertVisible: Choose a 6-digit PIN

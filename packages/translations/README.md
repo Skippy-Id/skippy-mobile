@@ -1,5 +1,5 @@
 <div align="center">
-   <img src="../../assets/icon.png" alt="Paradym Logo" height="176px" />
+   <img src="../../apps/wallet/brands/skippy/assets/icon.png" alt="Skippy" height="176px" />
 </div>
 
 <h1 align="center"><b>Translations</b></h1>

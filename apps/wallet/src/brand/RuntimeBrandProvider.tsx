@@ -2,15 +2,13 @@ import { skippyHubUrl } from '@app/constants'
 import * as Linking from 'expo-linking'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { brand } from '../../brands'
+import { clearCachedBranding, readCachedBranding, writeCachedBranding } from './brandCache'
 import {
-  clearCachedBranding,
   extractBrandToken,
   fetchPublicBrand,
   type RuntimeBrand,
-  readCachedBranding,
   resolveRuntimeBrand,
   type TenantBranding,
-  writeCachedBranding,
 } from './runtimeBrand'
 
 interface RuntimeBrandContextValue {

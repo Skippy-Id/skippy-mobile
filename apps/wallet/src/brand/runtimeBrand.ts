@@ -13,9 +13,7 @@
  */
 import { buildAppTheme, parseColor } from '../../brands/ramp'
 import type { Theme } from '../../brands/types'
-import { mmkv } from '../storage/mmkv'
 
-const CACHE_KEY = 'skippy.runtimeBrand'
 const FETCH_TIMEOUT_MS = 8000
 const MAX_STRING = 200
 
@@ -40,11 +38,6 @@ export interface RuntimeBrand {
   accent?: string
   poweredByVisible: boolean
   brandingVersion: number
-}
-
-interface CacheEntry {
-  branding: TenantBranding
-  fetchedAt: number
 }
 
 // ── validation ────────────────────────────────────────────────────────────────
@@ -163,31 +156,6 @@ export async function fetchPublicBrand(hubUrl: string, token: string): Promise<T
   } finally {
     clearTimeout(timeout)
   }
-}
-
-// ── cache ─────────────────────────────────────────────────────────────────────
-
-export function readCachedBranding(): TenantBranding | null {
-  try {
-    const raw = mmkv.getString(CACHE_KEY)
-    if (!raw) return null
-    const entry = JSON.parse(raw) as CacheEntry
-    return sanitizeBranding(entry?.branding)
-  } catch {
-    return null
-  }
-}
-
-export function writeCachedBranding(branding: TenantBranding): void {
-  try {
-    mmkv.set(CACHE_KEY, JSON.stringify({ branding, fetchedAt: Date.now() } satisfies CacheEntry))
-  } catch {
-    // A failed cache write only costs a refetch.
-  }
-}
-
-export function clearCachedBranding(): void {
-  mmkv.remove(CACHE_KEY)
 }
 
 // ── resolution ────────────────────────────────────────────────────────────────

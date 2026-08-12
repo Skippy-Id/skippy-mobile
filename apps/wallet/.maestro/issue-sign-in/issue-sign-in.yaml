@@ -135,10 +135,10 @@ appId: id.skippy.wallet.preview
 
 - runFlow:
     when:
-      visible: "Go back to Paradym Wallet"
+      visible: "Go back to Skippy Wallet"
     commands:
       - tapOn:
-          text: Go back to Paradym Wallet
+          text: Go back to Skippy Wallet
           index: 1
 
 - extendedWaitUntil:

@@ -1,3 +1,4 @@
+export { clearCachedBranding } from './brandCache'
 export {
   RuntimeBrandProvider,
   useBrandAccent,
@@ -6,7 +7,6 @@ export {
   useRuntimeBrand,
 } from './RuntimeBrandProvider'
 export {
-  clearCachedBranding,
   extractBrandToken,
   fetchPublicBrand,
   type RuntimeBrand,

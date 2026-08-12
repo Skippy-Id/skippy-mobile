@@ -35,6 +35,9 @@ jobs:
       - name: Check Types
         run: pnpm types:check
 
+      - name: Test
+        run: pnpm test
+
       # Catches a brand that is half-registered (config but no theme, bad asset
       # path, unknown EXPO_PUBLIC_APP_BRAND) without paying for a native build.
       - name: Resolve every brand's Expo config
