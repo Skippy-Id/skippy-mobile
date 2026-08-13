@@ -63,6 +63,18 @@ resolving those merges and the record of modifications Apache-2.0 §4(b) require
 - The `pidSetup.enableBiometrics` copy hardcoded "Paradym Wallet". It is now
   brand-neutral under a new message id (`…subtitleV2`), since the existing
   translations named a specific product.
+- The wallet home screen crashed with DIDComm disabled: `WalletScreen` renders
+  `InboxIcon` unconditionally, whose hooks need the DIDComm record providers that
+  `RecordProvider` only mounts when the agent has DIDComm modules. Upstream ships
+  `DIDCOMM: true`, so this path was never exercised. The icon is now gated on the
+  `DIDCOMM` feature flag — the inbox is a mediator-message concept and has no
+  meaning without DIDComm.
+- The keychain biometry capability probe (`Keychain.getSecurityLevel` with
+  `securityLevel: SECURE_HARDWARE`) can throw on devices without Keymaster
+  hardware instead of reporting "unavailable". That exception propagated into the
+  secure-unlock initialization query, which react-query swallows — leaving the
+  app on a permanent blank screen with no error anywhere. The probe now fails
+  safe (`false` = biometrics unavailable) and initialization failures are logged.
 - The Android build could not complete with Expo's default `-Xmx2048m`:
   `:app:mergeExtDexDebug` fails after ~30 minutes with a
   `DexArchiveMergerException` whose message is empty — an OOM in the dex merge
@@ -108,6 +120,18 @@ conflict, for no user-visible gain:
   Wallet Service Provider default (`wsp.funke.animo.id`). Unreachable while
   `AI_ANALYSIS` and `CLOUD_HSM` are false.
 - `LICENSE`, `packages/sdk/LICENSE` and `patches/` — must stay byte-identical.
+
+## Known issues (inherited from upstream, observed on-device)
+
+- **Interrupted onboarding cannot recover without a data wipe.** If the app dies
+  between wallet-store creation and `hasFinishedOnboarding` being persisted, the
+  next launch redirects to `/onboarding?reset=true`. That reset regenerates the
+  wallet-key **salt** but leaves the existing **Askar store** on disk, so every
+  subsequently chosen PIN derives a key that cannot open the old store — Askar
+  logs `Incorrect key for store` and onboarding fails with
+  `ParadymWalletAuthenticationInvalidPinError`, forever. Recovery requires
+  clearing app data. The reset path should delete the store (or reuse the salt);
+  needs a careful fix upstream because deleting a store is data-destructive.
 
 ## Syncing with upstream
 
