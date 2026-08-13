@@ -89,9 +89,12 @@ export default function Authenticate() {
   }, [paradym, isInitializingParadym])
 
   if (paradym.state === 'unlocked') {
-    // Expo and urls as query params don't go well together, so we encoded the url as base64
+    // Expo and urls as query params don't go well together, so we encoded the url as base64.
+    // Both encode sites (+native-intent.tsx and (app)/_layout.tsx) use toBase64Url, and
+    // Credo 0.7's fromBase64 decodes strictly (padded, standard alphabet) — decoding with
+    // fromBase64 therefore throws on every deep link received while the app is running.
     const redirect = redirectAfterUnlock
-      ? TypedArrayEncoder.toUtf8String(TypedArrayEncoder.fromBase64(redirectAfterUnlock))
+      ? TypedArrayEncoder.toUtf8String(TypedArrayEncoder.fromBase64Url(redirectAfterUnlock))
       : '/'
 
     return <Redirect href={redirect} />
