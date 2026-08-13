@@ -61,6 +61,13 @@ Notes for future merges:
   unchanged, so nothing that relied on it moves.
 - `BrandBackdrop` reads `primary-*` from the theme, so each white-label brand
   gets its own tint with no extra work.
+- The logo sits on `brand.logoBackground` (`#0D1117`, matching the web app's
+  `theme_color`), not on brand purple. Purple is the accent.
+- Changing the icon artwork needs more than a rebuild: `<Image src="icon" />`
+  resolves to the **native** icon resource and expo-image caches it with
+  `cachePolicy="memory-disk"`, so an install over existing data keeps serving the
+  old bitmap. Run `adb shell pm clear <app id>` (or reinstall clean) when
+  verifying an icon change, or you will review a stale image.
 
 ## Restructured
 
