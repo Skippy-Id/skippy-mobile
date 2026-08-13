@@ -29,7 +29,9 @@ const Btn = styled(TButton, {
 
 export const SolidButton = styled(Btn, {
   name: 'SolidButton',
-  backgroundColor: '$grey-900',
+  // The primary action is where a brand accent earns its place, so this carries
+  // the brand colour rather than upstream's near-black.
+  backgroundColor: '$primary-500',
   color: '$white',
   fontWeight: '$semiBold',
   variants: {

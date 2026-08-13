@@ -1,8 +1,8 @@
+import { BrandBackdrop } from '@app/components/BrandBackdrop'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { useHaptics } from '@package/app'
 import {
   AnimatedStack,
-  Blob,
   CustomIcons,
   FlexPage,
   Heading,
@@ -11,7 +11,6 @@ import {
   Paragraph,
   ScrollView,
   Spacer,
-  Stack,
   useSpringify,
   XStack,
   YStack,
@@ -46,8 +45,8 @@ export function WalletScreen() {
 
   return (
     <YStack pos="relative" fg={1} bg="$background">
-      <YStack pos="absolute" h="50%" w="100%">
-        <Blob />
+      <YStack pos="absolute" t={0} l={0} r={0} h="44%">
+        <BrandBackdrop />
       </YStack>
 
       <FlexPage fg={1} flex-1={false} bg="transparent">
@@ -58,16 +57,19 @@ export function WalletScreen() {
 
         <AnimatedStack fg={1} entering={useSpringify(FadeIn, 200)}>
           <ScrollView scrollEnabled={false} contentContainerStyle={{ fg: 1 }}>
-            <YStack fg={1} f={1} gap="$4">
-              <YStack ai="center" jc="center" gap="$2">
-                <Heading heading="h1" fontSize={38} lineHeight={40} ta="center" numberOfLines={2}>
+            {/* Left-aligned so the eye lands in the same column all the way down
+                the screen, rather than jumping from a centred hero into a list. */}
+            <YStack fg={1} f={1} gap="$5" pt="$5">
+              <YStack gap="$2">
+                <Heading heading="h1" fontSize={34} lineHeight={38} letterSpacing={-0.8} numberOfLines={2}>
                   <Trans id="home.helloWithoutName">Hello!</Trans>
                 </Heading>
-                <Paragraph>
-                  <Trans id="home.receiveOrShare">Receive or share from your wallet</Trans>{' '}
+                <Paragraph fontSize={16}>
+                  <Trans id="home.receiveOrShare">Receive or share from your wallet</Trans>
                 </Paragraph>
               </YStack>
-              <XStack gap="$4" jc="center" py="$2" w="95%" mx="auto">
+
+              <XStack gap="$3">
                 <ActionCard
                   variant="primary"
                   icon={<CustomIcons.Qr color="white" />}
@@ -76,19 +78,28 @@ export function WalletScreen() {
                 />
                 <ActionCard
                   variant="secondary"
-                  icon={<CustomIcons.People size={26} />}
+                  icon={<CustomIcons.People size={24} color="$primary-500" />}
                   title={t({ id: 'home.presentInPersonButton', message: 'Present In-person' })}
                   onPress={pushToOffline}
                 />
               </XStack>
 
-              <Stack h="$4" />
-            </YStack>
-            <YStack gap="$4" jc="space-around" fg={1} f={1}>
-              <YStack gap="$4">
-                <LatestActivityCard />
-                <AllCardsCard />
+              <YStack gap="$3" fg={1}>
+                <Paragraph
+                  fontSize={12}
+                  letterSpacing={1.1}
+                  fontWeight="$semiBold"
+                  color="$grey-600"
+                  textTransform="uppercase"
+                >
+                  <Trans id="home.overviewLabel">Overview</Trans>
+                </Paragraph>
+                <YStack gap="$3">
+                  <LatestActivityCard />
+                  <AllCardsCard />
+                </YStack>
               </YStack>
+
               <Spacer />
             </YStack>
           </ScrollView>

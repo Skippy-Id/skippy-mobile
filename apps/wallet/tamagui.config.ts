@@ -1,6 +1,6 @@
 import { radius, size, space, zIndex } from '@tamagui/themes'
 import { createTamagui, createTokens } from 'tamagui'
-import { configInput, fontOpenSans, fontRaleway, hexColors } from '../../packages/ui/src/config/tamagui.config'
+import { configInput, fontInter, hexColors } from '../../packages/ui/src/config/tamagui.config'
 import { APP_THEME } from './src/config/themes'
 
 const themeColors = APP_THEME
@@ -9,7 +9,9 @@ export const tokensInput = {
   color: hexColors,
   radius: {
     ...radius,
-    button: 16,
+    // Tighter than upstream's pill-ish 16: squarer corners read as considered
+    // rather than playful, which suits credentials.
+    button: 10,
   },
   size,
   zIndex,
@@ -43,10 +45,13 @@ const config = createTamagui({
   ...configInput,
   tokens,
   fonts: {
-    default: fontOpenSans,
-    heading: fontRaleway,
+    // Inter everywhere, matching the Skippy web app. Upstream pairs Open Sans
+    // with Raleway headings, which is a large part of what makes the app read
+    // as Paradym rather than Skippy.
+    default: fontInter,
+    heading: fontInter,
     // Somehow adding body font gives build errors?!
-    body: fontOpenSans,
+    body: fontInter,
   },
   themes: {
     light: {

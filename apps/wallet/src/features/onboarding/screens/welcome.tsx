@@ -1,5 +1,6 @@
+import { BrandBackdrop } from '@app/components/BrandBackdrop'
 import { useLingui } from '@lingui/react/macro'
-import { Blob, Button, FlexPage, Heading, Image, Paragraph, Stack, XStack, YStack } from '@package/ui'
+import { Button, FlexPage, Heading, Image, Paragraph, Stack, XStack, YStack } from '@package/ui'
 import ExpoConstants from 'expo-constants'
 
 export interface OnboardingWelcomeProps {
@@ -23,37 +24,38 @@ export default function OnboardingWelcome({ goToNextStep }: OnboardingWelcomePro
 
   return (
     <YStack fg={1} pos="relative">
-      <YStack pos="absolute" h="50%" w="100%">
-        <Blob />
-        <YStack
-          transform={[{ translateX: -48 }]} // Half of the image width (96/2)
-          pos="absolute"
-          top="40%"
-          left="50%"
-          ai="center"
-          jc="center"
-        >
+      <YStack pos="absolute" t={0} l={0} r={0} h="58%">
+        <BrandBackdrop />
+      </YStack>
+
+      <FlexPage fg={1} jc="space-between" backgroundColor="$transparent">
+        {/* Left-aligned mark and title: the app introduces itself the way a
+            document does, rather than as a centred splash. */}
+        <YStack fg={1} jc="center" gap="$6">
           <Stack
-            br="$7"
+            br={20}
             ov="hidden"
             bg="$primary-500"
-            shadowOffset={{ width: 5, height: 5 }}
-            shadowColor="$grey-400"
-            shadowOpacity={0.5}
+            w={72}
+            h={72}
+            shadowOffset={{ width: 0, height: 10 }}
+            shadowColor="$primary-900"
+            shadowOpacity={0.18}
             shadowRadius={24}
           >
-            <Image height={96} width={96} src="icon" />
+            <Image height={72} width={72} src="icon" />
           </Stack>
+
+          <YStack gap="$3">
+            <Heading heading="h1" fontSize={34} letterSpacing={-0.8}>
+              {ExpoConstants.expoConfig?.name}
+            </Heading>
+            <Paragraph fontSize={17} maxWidth={320}>
+              {introText}
+            </Paragraph>
+          </YStack>
         </YStack>
-      </YStack>
-      <FlexPage fg={1} jc="space-between" backgroundColor="$transparent">
-        <Stack h="40%" />
-        <YStack gap="$4" ai="center">
-          <Heading fontSize={32}>{ExpoConstants.expoConfig?.name}</Heading>
-          <Paragraph px="$2" ta="center">
-            {introText}
-          </Paragraph>
-        </YStack>
+
         <XStack gap="$2">
           <Button.Solid flexGrow={1} onPress={goToNextStep}>
             {getStartedLabel}

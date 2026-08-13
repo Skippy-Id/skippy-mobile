@@ -29,6 +29,39 @@ resolving those merges and the record of modifications Apache-2.0 §4(b) require
 | Privacy policy | `paradym.id/wallet-privacy-policy` | `brand.privacyPolicyUrl` |
 | Lingui brand ids | `paradymWallet.about.*` | `skippyWallet.about.*` |
 
+## Visual identity
+
+Colour and naming alone still left the app reading as Paradym, because the
+*shapes* were unchanged. The design now diverges deliberately — the direction is
+"calm and trustworthy": crisp type, generous whitespace, squarer corners, and
+brand purple used as an accent rather than as large fields.
+
+| Element | Upstream | Skippy |
+| --- | --- | --- |
+| Type | Open Sans body + Raleway headings | **Inter throughout**, matching the Skippy web app |
+| Backdrop | hand-drawn organic blob, ~50% of the screen | `BrandBackdrop` — soft wash + concentric arcs echoing the Skippy mark |
+| Home layout | centred hero, then a list | left-aligned column, labelled "Overview" section |
+| Action tiles | solid black tile vs. white tile | two quiet white tiles; the primary one carries a filled accent icon well |
+| Rows (`InfoButton`) | filled grey pill, `br $8` | white surface, hairline border, `br 14` |
+| Primary button | near-black (`grey-900`), radius 16 | brand purple (`primary-500`), radius 10 |
+
+Notes for future merges:
+
+- `fontInter` was already exported by `packages/ui` and its OTFs already bundled,
+  so the type swap added no dependencies — the wallet app was simply overriding
+  the shared default.
+- `Blob` is left untouched in `packages/ui` and merely unused, so upstream edits
+  to it cannot conflict.
+- `InfoButton` and `SolidButton` are shared components and were restyled
+  deliberately, so the shape language carries to every screen that uses them.
+  Expect conflicts there if upstream restyles them too; the Skippy side is the
+  white/hairline/14 row and the purple primary button.
+- `PeopleIcon` hardcoded `fill="black"` on every path, which silently overrode
+  its own `color` prop. The fills are removed so the prop works; the default is
+  unchanged, so nothing that relied on it moves.
+- `BrandBackdrop` reads `primary-*` from the theme, so each white-label brand
+  gets its own tint with no extra work.
+
 ## Restructured
 
 - **`apps/wallet/brands/`** (new) — build-time brands. `app.config.js` is now a
