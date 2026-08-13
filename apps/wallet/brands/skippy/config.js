@@ -20,7 +20,7 @@ export default {
   // NOTE: android requires paths referenced directly in code to only contain
   // _ a-Z 0-9, so we use _ for all files
   adaptiveIcon: './brands/skippy/assets/adaptive_icon.png',
-  adaptiveIconBackgroundColor: '#6B3FA0',
+  adaptiveIconBackgroundColor: '#0D1117',
   splash: './brands/skippy/assets/splash.png',
   splashIcon: './brands/skippy/assets/splash_icon.png',
   assets: ['./brands/skippy/assets/icon.png'],

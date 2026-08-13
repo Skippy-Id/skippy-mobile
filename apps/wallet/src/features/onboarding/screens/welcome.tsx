@@ -2,6 +2,7 @@ import { BrandBackdrop } from '@app/components/BrandBackdrop'
 import { useLingui } from '@lingui/react/macro'
 import { Button, FlexPage, Heading, Image, Paragraph, Stack, XStack, YStack } from '@package/ui'
 import ExpoConstants from 'expo-constants'
+import { brand } from '../../../../brands'
 
 export interface OnboardingWelcomeProps {
   goToNextStep: () => void
@@ -35,11 +36,11 @@ export default function OnboardingWelcome({ goToNextStep }: OnboardingWelcomePro
           <Stack
             br={20}
             ov="hidden"
-            bg="$primary-500"
+            bg={brand.logoBackground}
             w={72}
             h={72}
             shadowOffset={{ width: 0, height: 10 }}
-            shadowColor="$primary-900"
+            shadowColor="$grey-900"
             shadowOpacity={0.18}
             shadowRadius={24}
           >

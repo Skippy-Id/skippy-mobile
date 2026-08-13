@@ -11,6 +11,7 @@ import {
   useAppIcon as skippyUseAppIcon,
 } from './skippy/copy'
 import { FEATURES as skippyFeatures } from './skippy/features'
+import { LOGO_BACKGROUND as skippyLogoBackground } from './skippy/theme'
 import { trust as skippyTrust } from './skippy/trust'
 import type { BrandTrust, Features } from './types'
 
@@ -19,6 +20,8 @@ export interface Brand {
   productName: string
   supportEmail: string
   privacyPolicyUrl: string
+  /** Ground the logo lockup sits on. */
+  logoBackground: string
   copy: typeof skippyCopy
   useAppIcon: () => ReturnType<typeof skippyUseAppIcon>
   features: Features
@@ -31,6 +34,7 @@ const BRANDS: Record<string, Brand> = {
     productName: skippyProductName,
     supportEmail: skippySupportEmail,
     privacyPolicyUrl: skippyPrivacyPolicyUrl,
+    logoBackground: skippyLogoBackground,
     copy: skippyCopy,
     useAppIcon: skippyUseAppIcon,
     features: skippyFeatures,
