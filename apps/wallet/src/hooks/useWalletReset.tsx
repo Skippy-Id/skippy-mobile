@@ -1,3 +1,4 @@
+import { useClearRuntimeBrand } from '@app/brand'
 import { resetWalletServiceProviderState } from '@app/crypto/WalletServiceProviderClient'
 import { useLingui } from '@lingui/react/macro'
 import { useHaptics } from '@package/app'
@@ -12,6 +13,7 @@ export const useWalletReset = () => {
   const { withHaptics } = useHaptics()
   const { t } = useLingui()
   const paradym = useParadym('unlocked')
+  const clearRuntimeBrand = useClearRuntimeBrand()
 
   const onResetWallet = withHaptics(
     useCallback(() => {
@@ -25,11 +27,14 @@ export const useWalletReset = () => {
           onPress: withHaptics(async () => {
             await paradym.reset()
             await resetWalletServiceProviderState()
+            // Drop the cached tenant brand too, so a reset wallet comes back as
+            // the plain Skippy app rather than the last customer's branding.
+            clearRuntimeBrand()
             router.replace('/onboarding?reset=true')
           }),
         },
       ])
-    }, [router, withHaptics, t])
+    }, [router, withHaptics, t, clearRuntimeBrand])
   )
 
   return onResetWallet

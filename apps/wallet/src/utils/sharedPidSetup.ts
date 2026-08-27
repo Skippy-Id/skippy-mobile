@@ -68,9 +68,11 @@ export const pidSetupMessages = {
   idCardBiometricsDisabled: {
     title: defineMessage({ id: 'pidSetup.enableBiometrics.title', message: 'You need to enable biometrics' }),
     subtitle: defineMessage({
-      id: 'pidSetup.enableBiometrics.subtitle',
+      // Brand-neutral so every white-label build reads correctly. New id because
+      // the wording changed — the old translations named a specific product.
+      id: 'pidSetup.enableBiometrics.subtitleV2',
       message:
-        'To continue, make sure your device has biometric protection enabled, and that Paradym Wallet is allowed to use biometrics.',
+        'To continue, make sure your device has biometric protection enabled, and that this app is allowed to use biometrics.',
     }),
   },
   idCardComplete: {

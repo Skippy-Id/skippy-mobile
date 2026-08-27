@@ -308,18 +308,26 @@ function useSecureUnlockState(configuration: SetupParadymWalletSdkOptions): Secu
 
   useQuery({
     queryFn: async () => {
-      const salt = await secureWalletKey.getSalt(secureWalletKey.getWalletKeyVersion())
-      // TODO: is salt the best way to test this?
+      // A throw here would leave the state on 'initializing' forever, which the app
+      // renders as a blank screen with no error anywhere (react-query swallows it).
+      // Log loudly so a keychain/storage failure is at least diagnosable.
+      try {
+        const salt = await secureWalletKey.getSalt(secureWalletKey.getWalletKeyVersion())
+        // TODO: is salt the best way to test this?
 
-      // We have two params. If e.g. unlocking using biometrics failed, we will
-      // set setCanTryUnlockingUsingBiometrics to false, but `setCanUseBiometrics`
-      // will still be true (so we can store it)
-      const canUseBiometrics = await secureWalletKey.canUseBiometryBackedWalletKey()
-      setCanUseBiometrics(canUseBiometrics)
-      setCanTryUnlockingUsingBiometrics(canUseBiometrics)
+        // We have two params. If e.g. unlocking using biometrics failed, we will
+        // set setCanTryUnlockingUsingBiometrics to false, but `setCanUseBiometrics`
+        // will still be true (so we can store it)
+        const canUseBiometrics = await secureWalletKey.canUseBiometryBackedWalletKey()
+        setCanUseBiometrics(canUseBiometrics)
+        setCanTryUnlockingUsingBiometrics(canUseBiometrics)
 
-      setState(salt ? 'locked' : 'not-configured')
-      return salt
+        setState(salt ? 'locked' : 'not-configured')
+        return salt
+      } catch (error) {
+        console.error('Secure unlock initialization failed; app will stay on the splash/blank screen', error)
+        throw error
+      }
     },
     queryKey: ['wallet_unlock_salt'],
     enabled: state === 'initializing',

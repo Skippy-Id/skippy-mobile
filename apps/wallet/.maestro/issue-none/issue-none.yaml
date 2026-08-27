@@ -1,4 +1,4 @@
-appId: id.paradym.wallet.preview
+appId: id.skippy.wallet.preview
 ---
 # Deeplink is passed via the env variable in the runFlow call from the parent flow (either issue-none-didcomm.yaml or issue-none-openid4vc.yaml).
 - openLink:

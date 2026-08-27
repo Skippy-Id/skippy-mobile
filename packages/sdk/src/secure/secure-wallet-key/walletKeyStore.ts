@@ -40,44 +40,55 @@ const WALLET_KEY_ID = (version: number) => `PARADYM_WALLET_KEY_${version}`
  * or store the wallet key in the keychain.
  */
 async function canUseBiometryBackedWalletKey(): Promise<boolean> {
-  if (Platform.OS === 'android') {
-    /**
-     * `setUserAuthenticationParameters` is only available on Android API 30+, and is needed to ensure
-     * the key can only be accessed using biometry. React Native Keychain will fallback to allowing keys
-     * to be accessed by the device passcode. For this reason we only allow biometry to be used on devices
-     * running Android API 30 or higher.
-     */
-    if (Platform.Version < 30) {
-      return false
+  try {
+    if (Platform.OS === 'android') {
+      /**
+       * `setUserAuthenticationParameters` is only available on Android API 30+, and is needed to ensure
+       * the key can only be accessed using biometry. React Native Keychain will fallback to allowing keys
+       * to be accessed by the device passcode. For this reason we only allow biometry to be used on devices
+       * running Android API 30 or higher.
+       */
+      if (Platform.Version < 30) {
+        return false
+      }
+
+      /**
+       * Android Only API. We only allow hardware secured key storage for unlocking with biometrics
+       */
+      const securityLevel = await Keychain.getSecurityLevel(walletKeyStoreBaseOptions)
+      if (
+        !securityLevel ||
+        (securityLevel !== Keychain.SECURITY_LEVEL.SECURE_SOFTWARE &&
+          securityLevel !== Keychain.SECURITY_LEVEL.SECURE_HARDWARE)
+      ) {
+        return false
+      }
     }
 
-    /**
-     * Android Only API. We only allow hardware secured key storage for unlocking with biometrics
-     */
-    const securityLevel = await Keychain.getSecurityLevel(walletKeyStoreBaseOptions)
-    if (
-      !securityLevel ||
-      (securityLevel !== Keychain.SECURITY_LEVEL.SECURE_SOFTWARE &&
-        securityLevel !== Keychain.SECURITY_LEVEL.SECURE_HARDWARE)
-    ) {
-      return false
+    if (Platform.OS === 'ios') {
+      /**
+       * Checks whether the key can be authenticated using only biometrics (no passcode fallback)
+       */
+      const canUseAuthentication = await Keychain.canImplyAuthentication(walletKeyStoreBaseOptions)
+      if (!canUseAuthentication) return false
     }
-  }
 
-  if (Platform.OS === 'ios') {
+    const supportedBiometryType = await Keychain.getSupportedBiometryType()
+
     /**
-     * Checks whether the key can be authenticated using only biometrics (no passcode fallback)
+     * We only support biometrics secured storage of the wallet key
      */
-    const canUseAuthentication = await Keychain.canImplyAuthentication(walletKeyStoreBaseOptions)
-    if (!canUseAuthentication) return false
+    return supportedBiometryType !== null
+  } catch (error) {
+    /**
+     * The capability probes themselves can throw instead of reporting "unavailable" —
+     * notably getSecurityLevel with securityLevel: SECURE_HARDWARE on devices/emulators
+     * without Keymaster hardware. A failed probe means we cannot rely on biometry, so
+     * the honest answer is false; propagating would wedge secure-unlock initialization.
+     */
+    console.warn('Biometry capability probe failed, treating biometrics as unavailable', error)
+    return false
   }
-
-  const supportedBiometryType = await Keychain.getSupportedBiometryType()
-
-  /**
-   * We only support biometrics secured storage of the wallet key
-   */
-  return supportedBiometryType !== null
 }
 
 /**

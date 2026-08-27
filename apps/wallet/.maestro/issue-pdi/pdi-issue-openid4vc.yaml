@@ -1,4 +1,4 @@
-appId: id.paradym.wallet.preview
+appId: id.skippy.wallet.preview
 tags:
   - authorization-presentation-during-issuance
   # for the issuance of the PDI credential

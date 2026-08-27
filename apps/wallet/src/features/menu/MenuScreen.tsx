@@ -19,6 +19,7 @@ import {
 } from '@package/ui'
 import { router } from 'expo-router'
 import { Linking } from 'react-native'
+import { brand } from '../../../brands'
 
 type MenuListItemProps = {
   variant?: 'regular' | 'danger'
@@ -63,7 +64,9 @@ export function MenuScreen() {
   const onResetWallet = useWalletReset()
   const { withHaptics } = useHaptics()
 
-  const handleFeedback = withHaptics(() => Linking.openURL('mailto:ana@animo.id?subject=Feedback on the Wallet'))
+  const handleFeedback = withHaptics(() =>
+    Linking.openURL(`mailto:${brand.supportEmail}?subject=Feedback on ${brand.productName}`)
+  )
   const handlePush = (path: string) => withHaptics(() => router.push(path))
 
   return (

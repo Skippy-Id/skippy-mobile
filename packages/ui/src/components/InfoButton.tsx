@@ -83,10 +83,12 @@ export function InfoButton({
       onPressOut={handlePressOut}
       flexDirection="row"
       gap="$4"
-      br="$8"
-      bg={isPressable ? '$grey-50' : '$white'}
+      // Squarer corners and a white surface with a hairline edge, instead of a
+      // filled grey pill — the row reads as a record rather than a chip.
+      br={14}
+      bg="$white"
       p="$3.5"
-      bw="$0.5"
+      bw={1}
       accessible={true}
       accessibilityRole={onPress ? 'button' : undefined}
       aria-label={ariaLabel ?? `${title}. ${description}`}
