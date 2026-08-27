@@ -125,6 +125,11 @@ const createBaseConfig = (appSpecific) => {
         {
           cameraPermission:
             '$(PRODUCT_NAME) uses the camera to scan invitation QR-codes, allowing you to receive or share cards from your wallet.',
+          // The wallet only ever scans QR codes. expo-camera adds RECORD_AUDIO on
+          // Android by default, which would ship a microphone permission this app
+          // never uses — a bad look for a credential wallet and an easy way to
+          // invite Play review questions.
+          recordAudioAndroid: false,
         },
       ],
       [
@@ -200,6 +205,11 @@ const createBaseConfig = (appSpecific) => {
     android: {
       edgeToEdgeEnabled: true,
       allowBackup: false,
+      // Expo's bare template ships these as "optional permissions, remove whatever
+      // you do not need". The wallet never draws over other apps, and Play treats
+      // SYSTEM_ALERT_WINDOW as special access — asking for it invites review
+      // questions and looks wrong on a credential wallet.
+      blockedPermissions: ['android.permission.SYSTEM_ALERT_WINDOW'],
       adaptiveIcon: {
         foregroundImage: adaptiveIcon,
         backgroundColor: adaptiveIconBackgroundColor,
